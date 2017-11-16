@@ -140,20 +140,11 @@ ENV/
 # Rope project settings
 .ropeproject
 
-.gitignore
 .idea/dbnavigator.xml
 .idea/inspectionProfiles/
 .idea/markdown-navigator/
 .idea/misc.xml
 .idea/modules.xml
 .idea/vcs.xml
-README
-parse_station.py
 search_tickets.iml
-search_tickets.py
-stations.py
-!/parse_station.py
-!/search_tickets.py
-!/stations.py
-!/README
-!/.gitignore
+
