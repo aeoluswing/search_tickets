@@ -25,8 +25,10 @@ from prettytable import PrettyTable
 class TrainCollection:  
     # 列车车次信息列表项序列
     TRAIN_NO = 2
-    FROM_STATION_NAME = 3
-    TO_STATION_NAME = 4
+    STARTING_STATION = 3
+    TERMINAL_STATION = 4
+    FROM_STATION = 5
+    TO_STATION = 6
     START_TIME = 7
     ARRIVE_TIME = 8
     DURATION = 9
@@ -43,7 +45,7 @@ class TrainCollection:
     SPECIAL_CLASS_SEAT = 31
     CRH_BERTH = 32
     
-    header = '车次 出发站 到达站 出发时间 到达时间 历时 商务座特等座 一等座 二等座 高级软卧 软卧 硬卧 动卧 软座 硬座 无座'.split()
+    header = '车次 始发站 终点站 出发站 到达站 出发时间 到达时间 历时 商务座特等座 一等座 二等座 高级软卧 软卧 硬卧 动卧 软座 硬座 无座'.split()
 
     def __init__(self, available_trains, options):
         """查询到的火车班次集合
@@ -72,8 +74,10 @@ class TrainCollection:
             if not self.options or initial in self.options:
                 train = [
                     train_no,
-                    raw_train_list[self.FROM_STATION_NAME],
-                    raw_train_list[self.TO_STATION_NAME],
+                    raw_train_list[self.STARTING_STATION],
+                    raw_train_list[self.TERMINAL_STATION],
+                    raw_train_list[self.FROM_STATION],
+                    raw_train_list[self.TO_STATION],
                     raw_train_list[self.START_TIME],
                     raw_train_list[self.ARRIVE_TIME],
                     self._get_duration(raw_train_list[self.DURATION]),
@@ -93,7 +97,10 @@ class TrainCollection:
     def pretty_print(self):
         pt = PrettyTable()
         pt._set_field_names(self.header)
+        #将站点的英文缩写转换为中文输出
         for train in self.trains:
+            for i in range(1,5):
+                train[i] = list(stations.keys())[list(stations.values()).index(train[i])]
             pt.add_row(train)
         print(pt)
 
